@@ -1,3 +1,5 @@
+// "data" is a json object that contains the complete profile extracted by running profiler on Firefox
+
 function load() {
 	console.log("Parsing firefox profile:");
 	var threads_profile = data['profile']['threads'];
