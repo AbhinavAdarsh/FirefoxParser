@@ -1,17 +1,13 @@
 function load() {
 	console.log("Parsing firefox profile:");
-	// console.log(data);
-	// console.log(data['profile']['threads']);
 	var threads_profile = data['profile']['threads'];
 	var markers = threads_profile[0]['markers'];
 	var parse_data = markers['data'];
-	var network_data = {}
-	var parse_html_data = {}
-	var paint_data = {}
+	var network_data = {}	// Contains parsed data for networking
+	var parse_html_data = {}	// Contains parsed data for loading
+	var paint_data = {}	// Contains parsed data for paint
 
-	console.log("PARSE>>>",parse_data);
-
-	// Parsing for networking
+	// Parsing for "Networking"
 	for (var i = 0; i < parse_data.length; i++) {
 		var my_dict = parse_data[i][2];
 
@@ -26,13 +22,11 @@ function load() {
 	}
 	console.log(network_data);
 
-	// Parsing for "Parse HTML"
+	// Parsing for Loading ("Parse HTML")
 	var data_markers = data["markers"];
 	for(var j = 0; j < data_markers.length; ++j) {
 		var markers_data_dict = data_markers[j];
-		//console.log(markers_data_dict)
 		if(markers_data_dict != undefined && markers_data_dict["name"] === "Parse HTML") {
-			// console.log(markers_data_dict);
 			if(!(markers_data_dict["index"] in parse_html_data)) {
 				parse_html_data[markers_data_dict["index"]] = {"index":markers_data_dict["index"]}
 			}
@@ -43,7 +37,7 @@ function load() {
 	}
 	console.log(parse_html_data);
 
-	// Parsing for Paint
+	// Parsing for "Paint"
 	for (var i = 0; i < parse_data.length; i++) {
 		var paint_list = parse_data[i];
 		var paint_dict = paint_list[2];
