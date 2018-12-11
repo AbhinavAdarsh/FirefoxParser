@@ -8,6 +8,7 @@ function load() {
 	var network_data = {}	// Contains parsed data for networking
 	var parse_html_data = {}	// Contains parsed data for loading
 	var paint_data = {}	// Contains parsed data for paint
+	var dom_content_data = {}	// Contains parsed data for DOM content
 
 	// Parsing for "Networking"
 	for (var i = 0; i < parse_data.length; i++) {
@@ -57,4 +58,19 @@ function load() {
 		}
 	}
 	console.log(paint_data);
+
+	// Parsing for DOM Content Loaded
+	//var data_markers = data["markers"];
+	for(var j = 0; j < data_markers.length; ++j) {
+		var markers_data_dict_dom = data_markers[j];
+		if(markers_data_dict_dom != undefined && markers_data_dict_dom["name"] === "DOMEvent") {
+			if(!(markers_data_dict_dom["index"] in dom_content_data)) {
+				dom_content_data[markers_data_dict_dom["index"]] = {"index":markers_data_dict_dom["index"]}
+			}
+			dom_content_data[markers_data_dict_dom["index"]]["name"] = markers_data_dict_dom["name"]
+			dom_content_data[markers_data_dict_dom["index"]]["startTime"] = markers_data_dict_dom["start"]
+			dom_content_data[markers_data_dict_dom["index"]]["endTime"] = markers_data_dict_dom["end"]
+		}
+	}
+	console.log(dom_content_data);
 }
